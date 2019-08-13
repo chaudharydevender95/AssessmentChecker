@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "prestart": "npm install",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "connect-mongodb-session": "^2.2.0",
