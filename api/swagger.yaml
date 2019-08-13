@@ -1,0 +1,294 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Communication Assessment"
+host: "assessment-checker.herokuapp.com"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /teacher/leaderBoard:
+    get:
+      tags:
+      - "Leaderboard"
+      summary: "Get Leaderboard"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "teacherLeaderBoardGET"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "criteria"
+        in: "query"
+        description: "Select criteria"
+        required: true
+        type: "string"
+        enum:
+          - "total_score"
+          - "spelling_score"
+          - "grammar_score"
+          - "relevance_score"
+          - "rank"
+        default: "total_score"
+          
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              
+        400:
+          description: "Invalid status value"
+      x-swagger-router-controller: "Pet"
+
+  /teacher/student:
+    post:
+      tags:
+      - "Teacher"
+      summary: "Add a new student"
+      description: ""
+      operationId: "updatePetWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Teacher"
+      summary: "Update an existing student"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Updated successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+    delete:
+      tags:
+      - "Teacher"
+      summary: "Delete an existing student"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Deleted successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /teacher/assessment:
+    post:
+      tags:
+      - "Teacher"
+      summary: "Add a new assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "topics"
+        in: "formData"
+        description: "List of topics"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: multi
+          
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Teacher"
+      summary: "Update an existing assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "topics"
+        in: "formData"
+        description: "List of topics"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+      responses:
+        200:
+          description: "Updated successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+    delete:
+      tags:
+      - "Teacher"
+      summary: "Delete an existing assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Deleted successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /teacher/assign:
+    post:
+      tags:
+      - "Teacher"
+      summary: "Add a new assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "studentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "assessmentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+         
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+        405:
+          description: "Invalid input"
+  /teacher/unAssign:
+    post:
+      tags:
+      - "Teacher"
+      summary: "Add a new assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "studentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "assessmentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+         
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+        405:
+          description: "Invalid input"
+  /student/submit:
+    post:
+      tags:
+      - "Student"
+      summary: "Add a new assessment"
+      description: ""
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "studentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "assessmentId"
+        in: "formData"
+        description: "Name of new student"
+        required: true
+        type: "string"
+      - name: "text"
+        in: "formData"
+        description: "Solution text for assessment"
+        required: true
+        type: "string"
+         
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+        405:
+          description: "Invalid input"
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
